@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Passwords Keeper</string>
+    <string name="select_folder">Select Folder</string>
+</resources>
