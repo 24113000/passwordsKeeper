@@ -8,10 +8,16 @@ import android.widget.Toast;
 
 import com.sbezgin.passwordskeeper.R;
 import com.sbezgin.passwordskeeper.activity.main.MainActivityContext;
+import com.sbezgin.passwordskeeper.activity.main.PathHolder;
 import com.sbezgin.passwordskeeper.service.properties.PropertiesDataHolder;
 import com.sbezgin.passwordskeeper.utils.RandomPass;
 
 public class NewItemActivity extends AppCompatActivity {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fillGroupAndName();
+    }
 
     private MainActivityContext mainActivityContext;
 
@@ -29,6 +35,16 @@ public class NewItemActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        fillGroupAndName();
+    }
+
+    private void fillGroupAndName() {
+        PathHolder pathHolder = mainActivityContext.getPathHolder();
+        EditText groupEdit = (EditText) findViewById(R.id.groupEditField);
+        EditText nameEdit = (EditText) findViewById(R.id.nameEditField);
+        groupEdit.setText(pathHolder.getGroup());
+        nameEdit.setText(pathHolder.getName());
     }
 
     public void saveNewItem(View view) {

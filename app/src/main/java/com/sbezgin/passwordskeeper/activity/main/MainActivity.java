@@ -121,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        mainActivityContext.setPathHolder(pathHolder);
     }
 
     @Override
@@ -163,7 +165,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (mainActivityContext.isFlagReturnMain()) {
+
             mainActivityContext.resetFlagReturnMain();
+            mainActivityContext.setPathHolder(pathHolder);
+
             PropertiesDataHolder dataHolder;
             if (mainActivityContext.isDataValid()) {
                 dataHolder = mainActivityContext.getPropertiesDataHolder();
@@ -181,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
             displayList(dataHolder);
             updatePath();
+
         } else {
             Intent openMainActivity= new Intent(MainActivity.this, PasswordApply.class);
             openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -326,6 +332,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAddItemActivity() {
+
         Intent intent = new Intent(this, NewItemActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         this.startActivity(intent);

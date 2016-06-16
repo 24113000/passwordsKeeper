@@ -13,6 +13,7 @@ public class MainActivityContext {
     private static MainActivityContext ourInstance = new MainActivityContext();
 
     private boolean flagReturnMain;
+    private PathHolder pathHolder;
 
     public static MainActivityContext getInstance() {
         return ourInstance;
@@ -55,5 +56,13 @@ public class MainActivityContext {
 
     public void resetFlagReturnMain() {
         this.flagReturnMain = false;
+    }
+
+    public void setPathHolder(PathHolder pathHolder) {
+        this.pathHolder = pathHolder;
+    }
+
+    public PathHolder getPathHolder() {
+        return pathHolder;
     }
 }
