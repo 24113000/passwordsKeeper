@@ -33,6 +33,7 @@ import com.sbezgin.passwordskeeper.service.properties.PropertyService;
 import com.sbezgin.passwordskeeper.service.properties.impl.PropertyServiceImpl;
 import com.sbezgin.passwordskeeper.service.security.SecurityProvider;
 import com.sbezgin.passwordskeeper.service.security.impl.SecurityProviderImpl;
+import com.sbezgin.passwordskeeper.utils.Utils;
 
 import java.io.ByteArrayInputStream;
 import java.util.Set;
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int LAST_LEVEL = 2;
     private static final int MIDDLE_LEVEL = 1;
     public static final int FIRST_LEVEl = 0;
-    public static final String SUPER_HIDDEN_GROUP = "Super hidden";
 
     private PathHolder pathHolder = new PathHolder();
     private MainActivityContext mainActivityContext;
@@ -98,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
                         PropertiesDataHolder dataHolder = mainActivityContext.getPropertiesDataHolder();
 
                         if (item.getClass().equals(PropertyDTO.class)) {
-                            dataHolder.removeProperty(getRealGroupName(pathHolder.getGroup()), pathHolder.getName(), (PropertyDTO) item);
+                            dataHolder.removeProperty(Utils.getRealGroupName(pathHolder.getGroup()), pathHolder.getName(), (PropertyDTO) item);
                         } else if (pathHolder.getLevel() == MIDDLE_LEVEL) {
-                            dataHolder.removeName(getRealGroupName(pathHolder.getGroup()), item.toString());
+                            dataHolder.removeName(Utils.getRealGroupName(pathHolder.getGroup()), item.toString());
                         } else if (pathHolder.getLevel() == FIRST_LEVEl) {
                             String groupName = item.toString();
-                            dataHolder.removeGroup(getRealGroupName(groupName));
+                            dataHolder.removeGroup(Utils.getRealGroupName(groupName));
                         }
                         displayList(mainActivityContext.getPropertiesDataHolder());
                         dialog.dismiss();
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 pathHolder.setGroup(null);
             }
             pathHolder.setPreviousLevel();
-            displayList(getPropertiesDataHolder());
+            displayList(mainActivityContext.getPropertiesDataHolder());
         }
         updatePath();
     }
@@ -216,12 +216,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ListAdapter buildAdapter(PropertiesDataHolder dataHolder) {
         if (pathHolder.getLevel() == LAST_LEVEL) {
-            String group = getRealGroupName(pathHolder.getGroup());
+            String group = Utils.getRealGroupName(pathHolder.getGroup());
             String name = pathHolder.getName();
             Set<PropertyDTO> propertyDTOs = dataHolder.getProperties(group, name);
             return new TwoItemArrayAdapter(this, propertyDTOs.toArray(new Object[propertyDTOs.size()]), pathHolder.getGroup());
         } else if (pathHolder.getLevel() == MIDDLE_LEVEL) {
-            String groupName = getRealGroupName(pathHolder.getGroup());
+            String groupName = Utils.getRealGroupName(pathHolder.getGroup());
             Set<String> names = dataHolder.getNames(groupName);
             return new SimpleListAdapter(this, names.toArray(new String[names.size()]), pathHolder.getGroup());
         }
@@ -230,16 +230,9 @@ public class MainActivity extends AppCompatActivity {
         Set<String> groups = dataHolder.getGroups();
         if (groups.contains(PropertiesDataHolder.SECRET_PROPERTIES)) {
             groups.remove(PropertiesDataHolder.SECRET_PROPERTIES);
-            groups.add(SUPER_HIDDEN_GROUP);
+            groups.add(Utils.SUPER_HIDDEN_GROUP);
         }
         return new SimpleListAdapter(this, groups.toArray(new String[groups.size()]), pathHolder.getGroup());
-    }
-
-    private String getRealGroupName(String group) {
-        if (group.equals(SUPER_HIDDEN_GROUP)) {
-            return PropertiesDataHolder.SECRET_PROPERTIES;
-        }
-        return group;
     }
 
     private void saveDataHolder(PropertiesDataHolder dataHolder) {

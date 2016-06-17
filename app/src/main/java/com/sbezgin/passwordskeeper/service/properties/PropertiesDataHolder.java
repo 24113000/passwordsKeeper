@@ -119,6 +119,7 @@ public class PropertiesDataHolder {
         }
 
         Map<String, Set<PropertyDTO>> dtoMap = map.get(group);
-        dtoMap.remove(item.getKey());
+        Set<PropertyDTO> dtoSet = dtoMap.get(name);
+        dtoSet.remove(item);
     }
 }

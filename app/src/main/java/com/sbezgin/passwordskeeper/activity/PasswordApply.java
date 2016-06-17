@@ -49,6 +49,7 @@ public class PasswordApply extends AppCompatActivity {
                 break;
             case SAVE_DATA_HOLDER:
                 finish();
+                mainActivityContext.setFlagReturnMain();
                 break;
             default:
                 throw new RuntimeException("Unknown current state: " + mainActivityContext.getCurrentState());

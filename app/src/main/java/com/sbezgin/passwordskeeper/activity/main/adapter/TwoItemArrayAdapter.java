@@ -11,6 +11,7 @@ import com.sbezgin.passwordskeeper.R;
 import com.sbezgin.passwordskeeper.activity.main.MainActivity;
 import com.sbezgin.passwordskeeper.service.properties.PropertiesDataHolder;
 import com.sbezgin.passwordskeeper.service.properties.PropertyDTO;
+import com.sbezgin.passwordskeeper.utils.Utils;
 
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +36,7 @@ public class TwoItemArrayAdapter extends ArrayAdapter {
         PropertyDTO dto = (PropertyDTO) getItem(position);
         text1.setText(dto.getKey());
         text2.setText(dto.getValue());
-        if (MainActivity.SUPER_HIDDEN_GROUP.equals(groupName)) {
+        if (Utils.SUPER_HIDDEN_GROUP.equals(groupName)) {
             text2.setTextColor(Color.RED);
         }
         return view;

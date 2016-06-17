@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.sbezgin.passwordskeeper.activity.main.MainActivity;
+import com.sbezgin.passwordskeeper.utils.Utils;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class SimpleListAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = super.getView(position, convertView, parent);
         TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-        if (MainActivity.SUPER_HIDDEN_GROUP.equals(groupName)) {
+        if (Utils.SUPER_HIDDEN_GROUP.equals(groupName)) {
             text1.setTextColor(Color.RED);
         }
         return view;

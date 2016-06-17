@@ -11,6 +11,7 @@ import com.sbezgin.passwordskeeper.activity.main.MainActivityContext;
 import com.sbezgin.passwordskeeper.activity.main.PathHolder;
 import com.sbezgin.passwordskeeper.service.properties.PropertiesDataHolder;
 import com.sbezgin.passwordskeeper.utils.RandomPass;
+import com.sbezgin.passwordskeeper.utils.Utils;
 
 public class NewItemActivity extends AppCompatActivity {
     @Override
@@ -39,6 +40,12 @@ public class NewItemActivity extends AppCompatActivity {
         fillGroupAndName();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mainActivityContext.setFlagReturnMain();
+    }
+
     private void fillGroupAndName() {
         PathHolder pathHolder = mainActivityContext.getPathHolder();
         EditText groupEdit = (EditText) findViewById(R.id.groupEditField);
@@ -59,8 +66,9 @@ public class NewItemActivity extends AppCompatActivity {
         String keyStr = keyEdit.getText().toString();
         String valueStr = valueEdit.getText().toString();
         if (!paramsEmpty(groupStr, nameStr, keyStr, valueStr)) {
+            String realGroupName = Utils.getRealGroupName(groupStr);
             dataHolder.addNewProperty(
-                    groupStr,
+                    realGroupName,
                     nameStr,
                     keyStr,
                     valueStr
