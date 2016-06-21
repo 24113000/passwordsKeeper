@@ -272,18 +272,18 @@ public class MainActivity extends AppCompatActivity {
         FileService fileService = new FileServiceImpl(folder);
 
         PropertiesDataHolder dataHolder;
+        PasswordHolder passwordHolder = PasswordHolderImpl.getInstance();
+        String password = passwordHolder.getPassword();
 
         if (fileService.isFileExists()) {
             try {
-                PasswordHolder passwordHolder = PasswordHolderImpl.getInstance();
 
                 byte[] currentFileBytes = fileService.getCurrentFileBytes();
                 SecurityProvider securityProvider = new SecurityProviderImpl();
                 byte[] decryptData = new byte[0];
                 try {
-                    String password = passwordHolder.getPassword();
+
                     decryptData = securityProvider.decryptData(currentFileBytes, password);
-                    this.currentPassword = password;
                 } catch (Exception e) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle("Decryption is failed");
@@ -309,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
             dataHolder = new PropertiesDataHolder();
         }
 
+        this.currentPassword = password;
         return dataHolder;
     }
 
