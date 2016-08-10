@@ -19,11 +19,11 @@ public class PropertiesDataHolder {
     }
 
     public void addProperty(String groupName, String name, String key, String value) {
-        addRegularProperties(groupName, name, key, value, map);
+        addProperty(groupName, name, key, value, map);
     }
 
     public void addNewProperty(String groupName, String name, String key, String value) {
-        addRegularProperties(groupName, name, key, value, newMap);
+        addProperty(groupName, name, key, value, newMap);
         newGroups.add(groupName);
     }
 
@@ -31,8 +31,8 @@ public class PropertiesDataHolder {
         return newMap.size() > 0;
     }
 
-    private void addRegularProperties(String groupName, String name, String key, String value, Map<String, Map<String, Set<PropertyDTO>>> currMap) {
-        Map<String, Set<PropertyDTO>> propertyDTOMap = this.map.get(groupName);
+    private void addProperty(String groupName, String name, String key, String value, Map<String, Map<String, Set<PropertyDTO>>> currMap) {
+        Map<String, Set<PropertyDTO>> propertyDTOMap = currMap.get(groupName);
         if (propertyDTOMap == null) {
             propertyDTOMap = new HashMap<>();
             currMap.put(groupName, propertyDTOMap);
