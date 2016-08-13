@@ -30,7 +30,7 @@ public class SimpleListAdapter extends ArrayAdapter {
         View view = super.getView(position, convertView, parent);
         TextView text1 = (TextView) view.findViewById(android.R.id.text1);
         if (Utils.SUPER_HIDDEN_GROUP.equals(groupName)) {
-            text1.setTextColor(Color.RED);
+            text1.setTextColor(Color.LTGRAY);
         }
         return view;
     }

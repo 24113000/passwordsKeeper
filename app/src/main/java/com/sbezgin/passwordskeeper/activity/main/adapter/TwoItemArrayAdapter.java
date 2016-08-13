@@ -37,7 +37,7 @@ public class TwoItemArrayAdapter extends ArrayAdapter {
         text1.setText(dto.getKey());
         text2.setText(dto.getValue());
         if (Utils.SUPER_HIDDEN_GROUP.equals(groupName)) {
-            text2.setTextColor(Color.RED);
+            text2.setTextColor(Color.LTGRAY);
         }
         return view;
     }

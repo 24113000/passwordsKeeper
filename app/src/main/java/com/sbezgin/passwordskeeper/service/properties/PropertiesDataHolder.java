@@ -56,11 +56,17 @@ public class PropertiesDataHolder {
         Map<String, Set<PropertyDTO>> dtoMap = map.get(groupName);
         Set<PropertyDTO> result = new HashSet<>();
         if (dtoMap != null) {
-            result.addAll(dtoMap.get(name));
+            Set<PropertyDTO> set = dtoMap.get(name);
+            if (set != null) {
+                result.addAll(set);
+            }
         }
         Map<String, Set<PropertyDTO>> newDtoMap = newMap.get(groupName);
         if (newDtoMap != null) {
-            result.addAll(newDtoMap.get(name));
+            Set<PropertyDTO> set = newDtoMap.get(name);
+            if (set != null) {
+                result.addAll(set);
+            }
         }
         return result;
     }
@@ -98,7 +104,7 @@ public class PropertiesDataHolder {
             removeProperty(group, name, item, map);
         } else {
             namesMap = newMap.get(group);
-            if (namesMap==null) {
+            if (namesMap == null) {
                 throw new RuntimeException("Cannot get properties for group: " + group);
             }
             removeProperty(group, name, item, newMap);
